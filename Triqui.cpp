@@ -8,6 +8,7 @@ void introducirPrimerNumero(char c[3][3]);
 void tableroDeJuego(char c[3][3]);
 void numeroUsuario(char c[3][3]);
 void numeroMaquina(char c[3][3]);
+bool verificarGanador(char c[3][3], char jugador);
 
 int main() {
     char c[3][3];
@@ -23,15 +24,19 @@ void loop(char c[3][3]) {
     while(true){
         numeroUsuario(c);
         tableroDeJuego(c);
-        cout<<("\n");
+        if (verificarGanador(c, 'X')) {
+            cout << "¡Has ganado!" << endl;
+            break;
+        }
+        cout << "\n";
         numeroMaquina(c);
-        cout<<("\n");
+        cout << "\n";
         tableroDeJuego(c);
-
-    
+        if (verificarGanador(c, 'O')) {
+            cout << "La máquina ha ganado." << endl;
+            break;
+        }
     }
-
-
 }
 
 void introducirPrimerNumero(char c[3][3]) {
@@ -139,6 +144,21 @@ void numeroMaquina(char c[3][3]) {
     c[i][j] = 'O';
 }
 
+bool verificarGanador(char c[3][3], char jugador) {
+    for (int i = 0; i < 3; i++) {
+        if (c[i][0] == jugador && c[i][1] == jugador && c[i][2] == jugador) {
+            return true; // Ganador en fila
+        }
+        if (c[0][i] == jugador && c[1][i] == jugador && c[2][i] == jugador) {
+            return true; // Ganador en columna
+        }
+    }
+    if ((c[0][0] == jugador && c[1][1] == jugador && c[2][2] == jugador) 
+        (c[0][2] == jugador && c[1][1] == jugador && c[2][0] == jugador)) {
+        return true; // Ganador en diagonal
+    }
+    return false;
+}
 
 void tableroDeJuego(char c[3][3]) {
     int i, j;
@@ -149,9 +169,10 @@ void tableroDeJuego(char c[3][3]) {
                 cout << "|";
             }
         }
-        if (i < 2) {
+         if (i < 2) {
             cout << "\n---+---+---\n";
         }
     }
     cout << endl;
 }
+
