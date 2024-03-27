@@ -11,13 +11,21 @@ void numeroMaquina(char c[3][3]);
 bool verificarGanador(char c[3][3], char jugador);
 
 int main() {
-    char c[3][3];
-    loop(c);
+   int partidas = 0; // Contador de partidas
+    char jugarNuevamente;
+    do {
+        partidas++;
+        char c[3][3];
+        loop(c);
+        cout << "Número de partidas jugadas: " << partidas << endl;
+        cout << "¿Deseas jugar de nuevo? (s/n): ";
+        cin >> jugarNuevamente;
+    } while (jugarNuevamente == 's' || jugarNuevamente == 'S');
     return 0;
 }
 
 void loop(char c[3][3]) {
-
+    clock_t inicio = clock();
     introducirPrimerNumero(c);
     tableroDeJuego(c);
 
@@ -37,6 +45,9 @@ void loop(char c[3][3]) {
             break;
         }
     }
+    clock_t fin = clock(); 
+    double tiempoJuego = (double)(fin - inicio) / CLOCKS_PER_SEC; 
+    cout << "Tiempo de juego: " << tiempoJuego << " segundos" << endl;
 }
 
 void introducirPrimerNumero(char c[3][3]) {
@@ -153,11 +164,11 @@ bool verificarGanador(char c[3][3], char jugador) {
             return true; // Ganador en columna
         }
     }
-    if ((c[0][0] == jugador && c[1][1] == jugador && c[2][2] == jugador) 
+    if ((c[0][0] == jugador && c[1][1] == jugador && c[2][2] == jugador) || 
         (c[0][2] == jugador && c[1][1] == jugador && c[2][0] == jugador)) {
         return true; // Ganador en diagonal
     }
-    return false;
+    return false; 
 }
 
 void tableroDeJuego(char c[3][3]) {

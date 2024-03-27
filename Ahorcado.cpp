@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
+#include <ctime>
 using namespace std;
 
+int partidas = 0;
 string palabraInicial;
 string mostrarPalabra;
 int vidas;
@@ -11,19 +13,28 @@ void ingresar(char x);
 void inicializar(); // Declaración de la función inicializar
 
 int main() {
-    inicializar();
-    mostrar();
-    while (vidas > 0 && mostrarPalabra != palabraInicial) {
-        char x;
-        cin >> x;
-        ingresar(x);
+    char jugarNuevamente;
+    do {
+        partidas++; // Incrementa el contador de partidas al iniciar una nueva partida
+        inicializar();
+        clock_t inicio = clock(); 
         mostrar();
-    }
-    if (vidas > 0) {
-        cout << "Ganaste!!" << endl;
-    } else {
-        cout << "Perdiste, la palabra era: " << palabraInicial << endl;
-    }
+        while (vidas > 0 && mostrarPalabra != palabraInicial) {
+            char x;
+            cin >> x;
+            ingresar(x);
+            mostrar();
+        }
+        clock_t fin = clock(); 
+        double tiempoJuego = (double)(fin - inicio) / CLOCKS_PER_SEC; 
+        cout << "Tiempo de juego: " << tiempoJuego << " segundos" << endl;
+        cout << "¿Deseas jugar de nuevo? (s/n): ";
+        cin >> jugarNuevamente;
+    } while (jugarNuevamente == 's' || jugarNuevamente == 'S');
+
+    cout << "Número total de partidas jugadas: " << partidas << endl;
+
+    return 0;
 }
 
 void mostrar() {
