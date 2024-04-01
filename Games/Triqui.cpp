@@ -11,13 +11,13 @@ void numeroMaquina(char c[3][3]);
 bool verificarGanador(char c[3][3], char jugador);
 
 int main() {
-   int partidas = 0; // Contador de partidas
+   int partidasTriqui = 0; // Contador de partidas
     char jugarNuevamente;
     do {
-        partidas++;
+        partidasTriqui++;
         char c[3][3];
         loop(c);
-        cout << "Número de partidas jugadas: " << partidas << endl;
+        cout << "Número de partidas jugadas: " << partidasTriqui << endl;
         cout << "¿Deseas jugar de nuevo? (s/n): ";
         cin >> jugarNuevamente;
     } while (jugarNuevamente == 's' || jugarNuevamente == 'S');

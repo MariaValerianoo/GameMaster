@@ -10,7 +10,7 @@ struct Videojuego {
     int cantidadJugadores;
     vector<string> categorias;
     string desarrollador;
-    int anioLanzamiento;
+    int añoLanzamiento;
     string plataforma;
 };
 
@@ -18,8 +18,8 @@ struct Videojuego {
 list<list<Videojuego>> listaMultilista;
 
 // Función para agregar un videojuego
-void agregarVideojuego(string nombre, int cantidadJugadores, vector<string> categorias, string desarrollador, int anioLanzamiento, string plataforma) {
-    Videojuego nuevoJuego = {nombre, cantidadJugadores, categorias, desarrollador, anioLanzamiento, plataforma};
+void agregarVideojuego(string nombre, int cantidadJugadores, vector<string> categorias, string desarrollador, int añoLanzamiento, string plataforma) {
+    Videojuego nuevoJuego = {nombre, cantidadJugadores, categorias, desarrollador, añoLanzamiento, plataforma};
     for (const string& categoria : categorias) {
         bool categoriaEncontrada = false;
         for (auto& sublista : listaMultilista) {

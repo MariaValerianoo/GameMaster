@@ -3,7 +3,7 @@
 #include <ctime>
 using namespace std;
 
-int partidas = 0;
+int partidasAhorcado = 0;
 string palabraInicial;
 string mostrarPalabra;
 int vidas;
@@ -15,7 +15,7 @@ void inicializar(); // Declaración de la función inicializar
 int main() {
     char jugarNuevamente;
     do {
-        partidas++; // Incrementa el contador de partidas al iniciar una nueva partida
+        partidasAhorcado++; // Incrementa el contador de partidas al iniciar una nueva partida
         inicializar();
         clock_t inicio = clock(); 
         mostrar();
@@ -32,7 +32,7 @@ int main() {
         cin >> jugarNuevamente;
     } while (jugarNuevamente == 's' || jugarNuevamente == 'S');
 
-    cout << "Número total de partidas jugadas: " << partidas << endl;
+    cout << "Número total de partidas jugadas: " << partidasAhorcado << endl;
 
     return 0;
 }
@@ -44,7 +44,7 @@ void mostrar() {
 
 void inicializar() {
     vidas = 5; 
-    palabraInicial = "Ahorcado C++"; 
+    palabraInicial = "Parcial Algoritmos Mafe y Juan"; 
     mostrarPalabra = palabraInicial; 
 
     // Convertir la palabra inicial a minúsculas
