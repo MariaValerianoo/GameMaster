@@ -1,82 +1,99 @@
 #include <iostream>
-#include <list>
 #include <vector>
 #include <string>
+#include <sstream>
+#include <set>
+
 using namespace std;
 
 // Estructura para representar un videojuego
 struct Videojuego {
     string nombre;
-    int cantidadJugadores;
-    vector<string> categorias;
+    string categoria;
     string desarrollador;
-    int añoLanzamiento;
+    int anio;
     string plataforma;
 };
 
-// Lista de listas para almacenar los videojuegos por categoría
-list<list<Videojuego>> listaMultilista;
+// Vector para almacenar los videojuegos
+vector<Videojuego> videojuegos;
 
-// Función para agregar un videojuego
-void agregarVideojuego(string nombre, int cantidadJugadores, vector<string> categorias, string desarrollador, int añoLanzamiento, string plataforma) {
-    Videojuego nuevoJuego = {nombre, cantidadJugadores, categorias, desarrollador, añoLanzamiento, plataforma};
-    for (const string& categoria : categorias) {
-        bool categoriaEncontrada = false;
-        for (auto& sublista : listaMultilista) {
-            if (!sublista.empty() && sublista.front().categorias.front() == categoria) {
-                sublista.push_back(nuevoJuego);
-                categoriaEncontrada = true;
-                break;
-            }
-        }
-        if (!categoriaEncontrada) {
-            list<Videojuego> nuevaSublista;
-            nuevaSublista.push_back(nuevoJuego);
-            listaMultilista.push_back(nuevaSublista);
-        }
-    }
+// Conjunto para almacenar las categorías únicas
+set<string> categorias;
+
+// Función para agregar un nuevo videojuego
+void agregarVideojuego() {
+    Videojuego nuevoJuego;
+
+    cout << "Ingrese el nombre del videojuego: ";
+    getline(cin, nuevoJuego.nombre);
+
+    cout << "Ingrese la categoría del videojuego: ";
+    getline(cin, nuevoJuego.categoria);
+    categorias.insert(nuevoJuego.categoria); // Agregar la categoría al conjunto
+
+    cout << "Ingrese el desarrollador: ";
+    getline(cin, nuevoJuego.desarrollador);
+
+    cout << "Ingrese el año de lanzamiento: ";
+    cin >> nuevoJuego.anio;
+    cin.ignore(); // Limpiar el buffer de entrada
+
+    cout << "Ingrese la plataforma: ";
+    getline(cin, nuevoJuego.plataforma);
+
+    videojuegos.push_back(nuevoJuego);
 }
 
 // Función para mostrar los videojuegos por categoría
-void mostrarVideojuegosPorCategoria(string categoria) {
-    cout << "Videojuegos de la categoría " << categoria << ":" << endl;
-    for (const auto& sublista : listaMultilista) {
-        if (!sublista.empty() && sublista.front().categorias.front() == categoria) {
-            for (const Videojuego& juego : sublista) {
-                cout << "- " << juego.nombre << endl;
+void mostrarVideojuegosPorCategoria() {
+    for (const string& categoria : categorias) {
+        cout << "Videojuegos de la categoría " << categoria << ":" << endl;
+        for (const auto& juego : videojuegos) {
+            if (juego.categoria == categoria) {
+                cout << "- " << juego.nombre << ", Categoría: " << juego.categoria << ", Desarrollador: " << juego.desarrollador << ", Año: " << juego.anio << ", Plataforma: " << juego.plataforma << endl;
             }
         }
+        cout << endl;
     }
 }
 
 int main() {
+    char opcion;
 
-    //juegos de PlayStation
-    agregarVideojuego("God of War: Ragnarok", 1, {"Acción", "Aventura"}, "Sony Interactive Entertainment", 2022, "PlayStation");
-    agregarVideojuego("Gran Turismo 7", 1, {"Carreras", "Simulación"}, "Polyphony Digital", 2022, "PlayStation");
-    agregarVideojuego("Horizon Forbidden West", 1, {"Acción", "Aventura"}, "Guerrilla Games", 2022, "PlayStation");
-    agregarVideojuego("Spider-Man: Miles Morales", 1, {"Acción", "Aventura"}, "Insomniac Games", 2020, "PlayStation");
+    do {
+        cout << "\nMenú de opciones:" << endl;
+        cout << "1. Agregar un nuevo videojuego" << endl;
+        cout << "2. Mostrar videojuegos por categoría" << endl;
+        cout << "3. Salir" << endl;
+        cout << "Ingrese su opción: ";
+        cin >> opcion;
+        cin.ignore(); // Limpiar el buffer de entrada
 
-    //juegos de Xbox
-    agregarVideojuego("Halo Infinite", 1, {"Shooter", "Acción"}, "343 Industries", 2021, "Xbox");
-    agregarVideojuego("Forza Horizon 5", 1, {"Carreras", "Mundo abierto"}, "Playground Games", 2021, "Xbox");
-    agregarVideojuego("Psychonauts 2", 1, {"Plataformas", "Aventura"}, "Double Fine Productions", 2021, "Xbox");
-    agregarVideojuego("Gears 5", 1, {"Shooter", "Acción"}, "The Coalition", 2019, "Xbox");
-
-    //juegos de Nintendo
-    agregarVideojuego("The Legend of Zelda: Breath of the Wild", 1, {"Aventura", "Mundo abierto"}, "Nintendo EPD", 2017, "Nintendo Switch");
-    agregarVideojuego("Super Mario Odyssey", 1, {"Plataformas", "Aventura"}, "Nintendo EPD", 2017, "Nintendo Switch");
-    agregarVideojuego("Splatoon 3", 4, {"Shooter", "Multijugador"}, "Nintendo EPD", 2022, "Nintendo Switch");
-    agregarVideojuego("Animal Crossing: New Horizons", 4, {"Simulación", "Mundo abierto"}, "Nintendo EPD", 2020, "Nintendo Switch");
-
-    // Mostrar videojuegos por categoría
-     mostrarVideojuegosPorCategoria("Aventura");
-    mostrarVideojuegosPorCategoria("Simulación");
-    mostrarVideojuegosPorCategoria("Acción");
-    mostrarVideojuegosPorCategoria("Multijugador");
-    mostrarVideojuegosPorCategoria("Mundo Abierto");
-    mostrarVideojuegosPorCategoria("Carreras");
-
+        switch (opcion) {
+            case '1':
+                agregarVideojuego();
+                break;
+            case '2':
+                mostrarVideojuegosPorCategoria();
+                break;
+            case '3':
+                cout << "¡Hasta luego!" << endl;
+                break;
+            default:
+                cout << "Opción inválida. Intente nuevamente." << endl;
+                break;
+        }
+    } while (opcion != '3');
 
     return 0;
 }
+
+
+/*❖ Agregar un videojuego a la colección.
+❖ Asignar categorías a un videojuego.
+❖ Consultar y mostrar la lista de videojuegos ordenados por título.
+❖ Consultar y mostrar la lista de videojuegos ordenados por año de lanzamiento.
+❖ Consultar y mostrar la lista de videojuegos filtrados por una plataforma específica.
+❖ Utilizar al menos dos criterios de ordenamiento diferentes para ordenar la lista de
+videojuegos (por ejemplo, título y año de lanzamiento).*/
