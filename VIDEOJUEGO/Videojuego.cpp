@@ -40,4 +40,7 @@ public:
         return añoLanzamiento; }
     string getPlataforma() const { 
         return plataforma; }
+
+    
 };
+
