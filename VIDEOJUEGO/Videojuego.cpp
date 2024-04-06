@@ -3,7 +3,7 @@
 
 using namespace std;
 
-class Videojuego {
+class Videojuego{
 private:
     string nombre;
     int cantidadJugadores;

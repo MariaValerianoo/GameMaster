@@ -1,40 +1,50 @@
 #include <iostream>
 #include <vector>
-#include<string>
+#include <string>
+#include <ctime> 
 #include"./Videojuego.cpp"
-class Ahorcado: public Videojuego{
+
+using namespace std;
+class Ahorcado: public Videojuego {
+private:
     int partidas = 0;
     string palabraInicial;
     string mostrarPalabra;
     int vidas;
 
-    void mostrar(); // Declaración de la función mostrar
-    void ingresar(char x);
-    void inicializar(); // Declaración de la función inicializar
+public:
+    // Métodos get
+    int getPartidas() const {
+        return partidas;
+    }
 
-    int main() {
-        char jugarNuevamente;
-        do {
-            partidas++; // Incrementa el contador de partidas al iniciar una nueva partida
-            inicializar();
-            clock_t inicio = clock(); 
-            mostrar();
-            while (vidas > 0 && mostrarPalabra != palabraInicial) {
-                char x;
-                cin >> x;
-                ingresar(x);
-                mostrar();
-            }
-            clock_t fin = clock(); 
-            double tiempoJuego = (double)(fin - inicio) / CLOCKS_PER_SEC; 
-            cout << "Tiempo de juego: " << tiempoJuego << " segundos" << endl;
-            cout << "¿Deseas jugar de nuevo? (s/n): ";
-            cin >> jugarNuevamente;
-        } while (jugarNuevamente == 's' || jugarNuevamente == 'S');
+    string getPalabraInicial() const {
+        return palabraInicial;
+    }
 
-        cout << "Número total de partidas jugadas: " << partidas << endl;
+    string getMostrarPalabra() const {
+        return mostrarPalabra;
+    }
 
-        return 0;
+    int getVidas() const {
+        return vidas;
+    }
+
+    // Métodos set
+    void setPartidas(int p) {
+        partidas = p;
+    }
+
+    void setPalabraInicial(const string& p) {
+        palabraInicial = p;
+    }
+
+    void setMostrarPalabra(const string& p) {
+        mostrarPalabra = p;
+    }
+
+    void setVidas(int v) {
+        vidas = v;
     }
 
     void mostrar() {
@@ -66,7 +76,7 @@ class Ahorcado: public Videojuego{
         bool perderVidas = true;
 
         for (int i = 0; i < palabraInicial.length(); i++) {
-            if (x == palabraInicial[i]) { // Utiliza el operador de comparación '=='
+            if (x == palabraInicial[i]) { 
                 perderVidas = false;
                 mostrarPalabra[i] = x;
             }
@@ -76,4 +86,26 @@ class Ahorcado: public Videojuego{
         }
     }
 
-    };
+    void jugar() {
+        char jugarNuevamente;
+        do {
+            partidas++; // Incrementa el contador de partidas al iniciar una nueva partida
+            inicializar();
+            clock_t inicio = clock(); 
+            mostrar();
+            while (vidas > 0 && mostrarPalabra != palabraInicial) {
+                char x;
+                cin >> x;
+                ingresar(x);
+                mostrar();
+            }
+            clock_t fin = clock(); 
+            double tiempoJuego = (double)(fin - inicio) / CLOCKS_PER_SEC; 
+            cout << "Tiempo de juego: " << tiempoJuego << " segundos" << endl;
+            cout << "¿Deseas jugar de nuevo? (s/n): ";
+            cin >> jugarNuevamente;
+        } while (jugarNuevamente == 's' || jugarNuevamente == 'S');
+
+        cout << "Número total de partidas jugadas: " << partidas << endl;
+    }
+};

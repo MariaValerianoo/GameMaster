@@ -1,30 +1,20 @@
 #include <iostream>
-#include <stdio.h>
-#include <time.h>
+#include <cstdio>
+#include <ctime>
+#include <climits> 
 #include"./Videojuego.cpp"
+
 using namespace std;
-class Triqui: public Videojuego{
+
+
+class Triqui: public Videojuego {
+public:
     void loop(char c[3][3]);
     void introducirPrimerNumero(char c[3][3]);
     void tableroDeJuego(char c[3][3]);
     void numeroUsuario(char c[3][3]);
     void numeroMaquina(char c[3][3]);
     bool verificarGanador(char c[3][3], char jugador);
-
-    int main() {
-        Videojuego person;
-    int partidasTriqui = 0; // Contador de partidas
-        char jugarNuevamente;
-        do {
-            partidasTriqui++;
-            char c[3][3];
-            loop(c);
-            cout << "Número de partidas jugadas: " << partidasTriqui << endl;
-            cout << "¿Deseas jugar de nuevo? (s/n): ";
-            cin >> jugarNuevamente;
-        } while (jugarNuevamente == 's' || jugarNuevamente == 'S');
-        return 0;
-    }
 
     void loop(char c[3][3]) {
         clock_t inicio = clock();
@@ -68,74 +58,23 @@ class Triqui: public Videojuego{
         do {
             do {
                 cout << "\nEscoge donde quieres poner tu ficha: ";
-                fflush(stdin);
-                scanf(" %c", &aux);
+                cin >> aux; // Cambiado de scanf a cin para evitar problemas con fflush(stdin)
             } while (aux < '1' || aux > '9');
             k = 0;
             switch (aux) {
-                case '1':
-                    i = 0; j = 0;
-                    if (c[i][j] == 'X' || c[i][j] == 'O') {
-                        k = 1;
-                        cout << "Este espacio está ocupado, por favor selecciona otro!!\n\n";
-                    }
-                    break;
-                case '2':
-                    i = 0; j = 1;
-                    if (c[i][j] == 'X' || c[i][j] == 'O') {
-                        k = 1;
-                        cout << "Este espacio está ocupado, por favor selecciona otro!!\n\n";
-                    }
-                    break;
-                case '3':
-                    i = 0; j = 2;
-                    if (c[i][j] == 'X' || c[i][j] == 'O') {
-                        k = 1;
-                        cout << "Este espacio está ocupado, por favor selecciona otro!!\n\n";
-                    }
-                    break;
-                case '4':
-                    i = 1; j = 0;
-                    if (c[i][j] == 'X' || c[i][j] == 'O') {
-                        k = 1;
-                        cout << "Este espacio está ocupado, por favor selecciona otro!!\n\n";
-                    }
-                    break;
-                case '5':
-                    i = 1; j = 1;
-                    if (c[i][j] == 'X' || c[i][j] == 'O') {
-                        k = 1;
-                        cout << "Este espacio está ocupado, por favor selecciona otro!!\n\n";
-                    }
-                    break;
-                case '6':
-                    i = 1; j = 2;
-                    if (c[i][j] == 'X' || c[i][j] == 'O') {
-                        k = 1;
-                        cout << "Este espacio está ocupado, por favor selecciona otro!!\n\n";
-                    }
-                    break;
-                case '7':
-                    i = 2; j = 0;
-                    if (c[i][j] == 'X' || c[i][j] == 'O') {
-                        k = 1;
-                        cout << "Este espacio está ocupado, por favor selecciona otro!!\n\n";
-                    }
-                    break;
-                case '8':
-                    i = 2; j = 1;
-                    if (c[i][j] == 'X' || c[i][j] == 'O') {
-                        k = 1;
-                        cout << "Este espacio está ocupado, por favor selecciona otro!!\n\n";
-                    }
-                    break;
-                case '9':
-                    i = 2; j = 2;
-                    if (c[i][j] == 'X' || c[i][j] == 'O') {
-                        k = 1;
-                        cout << "Este espacio está ocupado, por favor selecciona otro!!\n\n";
-                    }
-                    break;
+                case '1': i = 0; j = 0; break;
+                case '2': i = 0; j = 1; break;
+                case '3': i = 0; j = 2; break;
+                case '4': i = 1; j = 0; break;
+                case '5': i = 1; j = 1; break;
+                case '6': i = 1; j = 2; break;
+                case '7': i = 2; j = 0; break;
+                case '8': i = 2; j = 1; break;
+                case '9': i = 2; j = 2; break;
+            }
+            if (c[i][j] == 'X' || c[i][j] == 'O') {
+                k = 1;
+                cout << "Este espacio está ocupado, por favor selecciona otro!!\n\n";
             }
         } while (k == 1);
         c[i][j] = 'X'; // Coloca la ficha del usuario
@@ -143,7 +82,6 @@ class Triqui: public Videojuego{
 
     void numeroMaquina(char c[3][3]) {
         int i, j, k;
-
         srand(time(NULL));
         do {
             i = rand() % 3;
@@ -153,7 +91,6 @@ class Triqui: public Videojuego{
                 k = 1;
             }
         } while (k == 1);
-
         c[i][j] = 'O';
     }
 
@@ -189,4 +126,14 @@ class Triqui: public Videojuego{
         cout << endl;
     }
 
-    };
+    void jugar() {
+        char jugarNuevamente;
+        do {
+            char c[3][3];
+            loop(c);
+            cout << "¿Deseas jugar de nuevo? (s/n): ";
+            cin >> jugarNuevamente;
+        } while (jugarNuevamente == 's' || jugarNuevamente == 'S');
+    }
+};
+
