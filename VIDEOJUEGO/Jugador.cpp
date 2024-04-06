@@ -173,12 +173,6 @@ public:
 
 class Triqui: public Videojuego {
 public:
-    /*void loop(char c[3][3]);
-    void introducirPrimerNumero(char c[3][3]);
-    void numeroUsuario(char c[3][3]);
-    void numeroMaquina(char c[3][3]);
-    bool verificarGanador(char c[3][3], char jugador);
-    void tableroDeJuego(char c[3][3]);*/
     
     void loop(char c[3][3]) {
         introducirPrimerNumero(c);
