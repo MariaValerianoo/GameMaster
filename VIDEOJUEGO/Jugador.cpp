@@ -66,6 +66,8 @@ public:
     string getPlataforma() const { 
         return plataforma; 
     }
+    
+
 };
 
 class Ahorcado: public Videojuego {
@@ -365,13 +367,8 @@ public:
         cout << "Ingrese su nickname: \n";
         cin >> nickIngresado;
         while (nickIngresado != nick) {
-            cout << "No es correcto el nickname vuelve a intentarlo" << endl;
-            cout << "Tienes 3 intentos " << endl;
-            cin >> nickIngresado;
-            intentos--;
-            if (intentos == 0) {
-                return false;
-            }
+            buscarUsuario();
+            
         }
         cout << "El nickname es valido, ahora ingresa la contraseña\n recuerda que esta es de 4 digitos: ";
         cin >> claveIngresada; 
@@ -401,7 +398,7 @@ public:
                 if (verificarCredenciales()) {
                     secondMenu();
                 } else {
-                    cout << "Inicio de sesión fallido.\n";
+                    buscarUsuario();
                 }
                 break;
             }
@@ -440,6 +437,30 @@ public:
             }
         } while (op != 5);
     }
+    bool buscarUsuario() {
+        vector<Jugador> jugadores;
+        string nickIngresado;
+        cout << "Ingrese el nickname para buscar: ";
+        cin >> nickIngresado;
+        for (const Jugador& jugador : jugadores) {
+            if (jugador.getNick() == nickIngresado) {
+                return true; 
+            }
+        }
+        cout << "El usuario no está registrado." << endl;
+        cout << "¿Deseas registrarte? (s/n): ";
+        char respuesta;
+        cin >> respuesta;
+        if (respuesta == 's' || respuesta == 'S') {
+            Jugador nuevoUsuario;
+            nuevoUsuario.registrarUsuario();
+            jugadores.push_back(nuevoUsuario);
+        }
+        return false; 
+    }
 };
-
-
+int main() {
+    Jugador jugador;
+    jugador.Inicio();
+    return 0;
+}
