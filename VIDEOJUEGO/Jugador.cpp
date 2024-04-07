@@ -6,7 +6,7 @@
 #include <time.h>
 #include <limits>
 using namespace std;
-
+//Declaracion de clase videojuego
 class Videojuego {
 private:
     string nombre;
@@ -69,7 +69,7 @@ public:
     
 
 };
-
+//declaracion clase ahorcado
 class Ahorcado: public Videojuego {
 private:
     int partidas = 0;
@@ -146,7 +146,7 @@ public:
             vidas--;
         }
     }
-
+//funcion para ejecutar juego
     void jugar() {
         char jugarNuevamente;
         do {
@@ -279,7 +279,7 @@ public:
         }
         cout << endl;
     }
-
+//Funcion para ejecutar juegp
     void jugar() {
         char jugarNuevamente;
         do {
@@ -291,7 +291,7 @@ public:
         } while (jugarNuevamente == 's' || jugarNuevamente == 'S');
     }
 };
-
+//class jugador delacaracion
 class Jugador {
 private:
     string nombre;
@@ -333,6 +333,7 @@ public:
     void setClave(const string& c) { 
         clave = c;
     }
+//Funcion para ver cual juego es el mas jugado y asi definir el favorito
     void determinarJuegoFavorito(Triqui& triqui, Ahorcado& ahorcado) {
         cout<<"Las partidas jugadas en ahorcado son: "<<ahorcado.getPartidasAhorcado()<<endl;
         cout<<"Las partidas jugadas en triqui son: "<<triqui.getPartidasTriqui()<<endl;
@@ -365,7 +366,7 @@ public:
             cin >> clave;
         }
     }
-
+//verificacion de credenciales o creacion de usuario
     bool verificarCredenciales() { 
         string nickIngresado;
         string claveIngresada; 
