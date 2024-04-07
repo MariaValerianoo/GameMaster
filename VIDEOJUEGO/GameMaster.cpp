@@ -412,6 +412,7 @@ public:
     void jugar() {
         char jugarNuevamente;
         do {
+            cout<<"Bienvenido a triqui: "<<endl;
             char c[3][3];
             loop(c);
             cout << "¿Deseas jugar de nuevo? (s/n): ";
