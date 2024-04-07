@@ -8,7 +8,7 @@
 #include <sstream>
 #include <set>
 #include <algorithm>
-#include<"./GameMaster.cpp">
+#include"./GameMaster.cpp"
 using namespace std;
 
 

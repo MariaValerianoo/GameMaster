@@ -165,7 +165,7 @@ int almacenamiento() {
         cout << "7. Salir" << endl;
         cout << "Ingrese su opción: ";
         cin >> opcion;
-        cin.ignore(); // Limpiar el buffer de entrada
+        cin.ignore(); 
         switch (opcion) {
             case '1':
                 agregarVideojuego();
@@ -494,7 +494,7 @@ public:
             cin >> clave;
             nuevoJugador.setClave(clave);
         }
-        jugadores.push_back(nuevoJugador); // Agregar el nuevo jugador al vector de jugadores
+        jugadores.push_back(nuevoJugador); 
         cout << "Registro exitoso:) " << endl;
     }
 
@@ -567,8 +567,7 @@ public:
             cout << "1)Juego Ahorcado\n ";
             cout << "2)Juego Triqui\n ";
             cout << "3)Almacenamiento de videojuegos\n ";
-            cout << "4)Ver tus favoritos\n ";
-            cout << "5)Salir del programa\n ";
+            cout << "4)Salir del programa\n ";
             cout << "Elige tu opcion: \n ";
             cin >> op;
             switch (op) {
@@ -581,11 +580,8 @@ public:
             case 3:
                 hola.almacenamiento();
                 break;
-            case 4:
-                // Implementar funcionalidad aquí
-                break;
             }
-        } while (op != 5);
+        } while (op != 4);
     }
     bool buscarUsuario() {
         string nickIngresado;
