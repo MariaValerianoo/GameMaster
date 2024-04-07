@@ -333,6 +333,18 @@ public:
     void setClave(const string& c) { 
         clave = c;
     }
+    void determinarJuegoFavorito(Triqui& triqui, Ahorcado& ahorcado) {
+        cout<<"Las partidas jugadas en ahorcado son: "<<ahorcado.getPartidasAhorcado()<<endl;
+        cout<<"Las partidas jugadas en triqui son: "<<triqui.getPartidasTriqui()<<endl;
+        if (ahorcado.getPartidasAhorcado() > triqui.getPartidasTriqui()) {
+            cout << "Tu juego favorito es Ahorcado." << endl;
+        } else if (triqui.getPartidasTriqui() > ahorcado.getPartidasAhorcado()) {
+            cout << "Tu juego favorito es Triqui." << endl;
+        } else {
+            cout << "Tienes el mismo número de partidas en Ahorcado y Triqui." << endl;
+        }
+    }
+
 
     void registrarUsuario() { 
         cout << "Vamos a hacer tu registro " << endl;
@@ -452,6 +464,7 @@ public:
         }
         return false; 
     }
+
 };
 int main() {
     Jugador jugador;
