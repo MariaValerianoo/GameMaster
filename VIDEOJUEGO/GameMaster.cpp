@@ -17,9 +17,26 @@ private:
     string desarrollador;
     int año;
     string plataforma;
+    int partidas_triqui;
+    int partidas_ahorcado;
 
 public:
     Videojuego() {}
+    int getPartidasTriqui() const {
+        return partidas_triqui;
+    }
+
+    int getPartidasAhorcado() const {
+        return partidas_ahorcado;
+    }
+
+    void setPartidasTriqui(int partidas) {
+        partidas_triqui = partidas;
+    }
+
+    void setPartidasAhorcado(int partidas) {
+        partidas_ahorcado = partidas;
+    }
 
     void setNombre(const string& nombre) { 
         this->nombre = nombre; 
@@ -279,6 +296,7 @@ public:
     void jugar() {
         char jugarNuevamente;
         do {
+            cout<<"Bienvenido a ahorcado "<<endl;
             partidas++;
             inicializar();
             clock_t inicio = clock(); 
@@ -297,12 +315,23 @@ public:
         } while (jugarNuevamente == 's' || jugarNuevamente == 'S');
 
         cout << "Número total de partidas jugadas: " << partidas << endl;
+        int op=partidas;
+        setPartidasAhorcado(op);
+        
     }
 };
 
 class Triqui: public Videojuego {
+    private:
+    int partidas=0;
+
 public:
-    
+    int getPartidas() const {
+        return partidas;
+    }
+    void setPartidas(int p) {
+        partidas = p;
+    }
     void loop(char c[3][3]) {
         introducirPrimerNumero(c);
         tableroDeJuego(c);
@@ -413,12 +442,16 @@ public:
         char jugarNuevamente;
         do {
             cout<<"Bienvenido a triqui: "<<endl;
+            partidas++;
             char c[3][3];
             loop(c);
             cout << "¿Deseas jugar de nuevo? (s/n): ";
             cin >> jugarNuevamente;
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpiar el buffer de entrada
         } while (jugarNuevamente == 's' || jugarNuevamente == 'S');
+        cout << "Número total de partidas jugadas: " << partidas << endl;
+        int op=partidas;
+        setPartidasTriqui(op);
     }
 };
 
@@ -429,6 +462,8 @@ private:
     string numero;
     string clave;
     vector<Jugador> jugadores;
+    Ahorcado ahorcado;
+    Triqui triqui;
 
 public:
     Jugador() {}
@@ -463,6 +498,17 @@ public:
 
     void setClave(const string& c) { 
         clave = c;
+    }
+    void determinarJuegoFavorito(Triqui& triqui, Ahorcado& ahorcado) {
+        cout<<"Las partidas jugadas en ahorcado son: "<<ahorcado.getPartidasAhorcado()<<endl;
+        cout<<"Las partidas jugadas en triqui son: "<<triqui.getPartidasTriqui()<<endl;
+        if (ahorcado.getPartidasAhorcado() > triqui.getPartidasTriqui()) {
+            cout << "Tu juego favorito es Ahorcado." << endl;
+        } else if (triqui.getPartidasTriqui() > ahorcado.getPartidasAhorcado()) {
+            cout << "Tu juego favorito es Triqui." << endl;
+        } else {
+            cout << "Tienes el mismo número de partidas en Ahorcado y Triqui." << endl;
+        }
     }
 
 // Método para registrar un nuevo usuario
@@ -568,6 +614,7 @@ public:
             cout << "1)Juego Ahorcado\n ";
             cout << "2)Juego Triqui\n ";
             cout << "3)Almacenamiento de videojuegos\n ";
+            cout << "4)Ver tu favorito\n ";
             cout << "4)Salir del programa\n ";
             cout << "Elige tu opcion: \n ";
             cin >> op;
@@ -581,8 +628,11 @@ public:
             case 3:
                 hola.almacenamiento();
                 break;
+            case 4:
+                determinarJuegoFavorito(person, user);
+
             }
-        } while (op != 4);
+        } while (op != 5);
     }
     bool buscarUsuario() {
         string nickIngresado;
@@ -605,4 +655,3 @@ public:
         return false; 
     }
 };
-
